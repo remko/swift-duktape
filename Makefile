@@ -5,8 +5,9 @@ DUKTAPE_UPSTREAM_URL=http://duktape.org/$(DUKTAPE_UPSTREAM_FILE)
 
 DUKTAPE_FILES=duktape.c duktape.h duk_config.h CDuktape.c include/CDuktape.h
 DUKTAPE_TARGET_FILES=$(addprefix $(SOURCES_DIR)/, $(DUKTAPE_FILES))
+DUKTAPE_COPYRIGHT_FILES=AUTHORS.duktape.rst LICENSE.duktape.txt
 
-all: $(DUKTAPE_TARGET_FILES)
+all: $(DUKTAPE_TARGET_FILES) $(DUKTAPE_COPYRIGHT_FILES)
 	swift build
 
 $(SOURCES_DIR)/duktape.c: Upstream/src/duktape.c
@@ -20,6 +21,12 @@ $(SOURCES_DIR)/duk_config.h: Upstream/src/duk_config.h
 
 $(SOURCES_DIR)/include/CDuktape.h $(SOURCES_DIR)/CDuktape.c: Upstream/src/duktape.h create_wrapper.rb
 	./create_wrapper.rb $< $(SOURCES_DIR)/include/CDuktape.h $(SOURCES_DIR)/CDuktape.c
+
+AUTHORS.duktape.rst: Upstream/AUTHORS.rst
+	cp $< $@
+
+LICENSE.duktape.txt: Upstream/LICENSE.txt
+	cp $< $@
 
 Upstream/%: $(DUKTAPE_UPSTREAM_FILE)
 	mkdir -p Upstream

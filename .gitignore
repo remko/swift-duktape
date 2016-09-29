@@ -9,3 +9,5 @@
 /Sources/CDuktape/duktape.c
 /Sources/CDuktape/duktape.h
 /Sources/CDuktape/include/CDuktape.h
+/AUTHORS.duktape.rst
+/LICENSE.duktape.txt
