@@ -4,10 +4,3 @@
 /*.xcodeproj
 /Upstream
 *.xz
-/Sources/CDuktape/CDuktape.c
-/Sources/CDuktape/duk_config.h
-/Sources/CDuktape/duktape.c
-/Sources/CDuktape/duktape.h
-/Sources/CDuktape/include/CDuktape.h
-/AUTHORS.duktape.rst
-/LICENSE.duktape.txt
