@@ -1,5 +1,10 @@
 #include "include/CDuktape.h"
 
+duk_context* duk_create_heap_default() {
+return  	duk_create_heap(NULL, NULL, NULL, NULL, NULL)
+;
+}
+
 const char* duk_safe_to_string(duk_context *ctx, duk_idx_t index) {
 return  	duk_safe_to_lstring((ctx), (index), NULL)
 ;
