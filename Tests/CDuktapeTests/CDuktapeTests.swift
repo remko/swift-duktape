@@ -3,12 +3,21 @@ import XCTest
 
 class CDuktapeTests: XCTestCase {
   func testEvalString() {
-    let ctx = duk_create_heap(nil, nil, nil, nil, nil);
-    duk_eval_string(ctx, "'foo' + 'bar'");
+    let ctx = duk_create_heap(nil, nil, nil, nil, nil)
+    duk_eval_string(ctx, "'foo' + 'bar'")
     let result = String(validatingUTF8:duk_to_string(ctx, -1)!)!
-    duk_pop(ctx);
-    duk_destroy_heap(ctx);
+    duk_pop(ctx)
+    duk_destroy_heap(ctx)
     XCTAssertEqual(result, "foobar")
+  }
+
+  func testEvalString2() {
+    let ctx = duk_create_heap_default()
+    defer { duk_destroy_heap(ctx) }
+    duk_eval_string(ctx, "5 + 6")
+    let result = String(validatingUTF8:duk_to_string(ctx, -1)!)!
+    duk_pop(ctx)
+    XCTAssertEqual(result, "11")
   }
 
   func testSafeCall() {

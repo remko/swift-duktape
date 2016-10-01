@@ -7,7 +7,8 @@ TARGET_SOURCE_FILE=ARGV[2]
 MACROS = {
  "duk_eval_file_noresult" => ["void", "duk_context *ctx, const char *path"],
  "duk_eval_string" => ["void", "duk_context *ctx, const char *src"],
- "duk_safe_to_string" => ["const char*", "duk_context *ctx, duk_idx_t index"]
+ "duk_safe_to_string" => ["const char*", "duk_context *ctx, duk_idx_t index"],
+ "duk_create_heap_default" => ["duk_context*"],
 }
 
 target_include =<<EOF
@@ -24,9 +25,9 @@ def handle_macro(name, params, value, target_include, target_source)
 	macro = MACROS[name]
 	if macro
 		target_include << "#undef #{name}\n"
-		target_include << macro[0] << " " << name << "(" << macro[1] << ");\n"
+		target_include << macro[0] << " " << name << "(" << (macro[1] || "") << ");\n"
 
-		target_source << macro[0] << " " << name << "(" << macro[1] << ") {\n"
+		target_source << macro[0] << " " << name << "(" << (macro[1] || "") << ") {\n"
 		if macro[0] != "void"
 			target_source << "return ";
 		end
