@@ -21,8 +21,8 @@ class CDuktapeTests: XCTestCase {
   }
 
   func testSafeCall() {
-    let ctx = duk_create_heap(nil, nil, nil, nil, nil);
-    let ret = duk_safe_call(ctx, { (_ ctx: OpaquePointer?) -> duk_ret_t in
+    let ctx = duk_create_heap_default()
+    let ret = duk_safe_call(ctx, { ctx in
       duk_eval_string(ctx, "'foo' + 'bar'")
       return 1
     }, 0, 1);

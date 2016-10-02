@@ -1,7 +1,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "CDuktape",
+    name: "swift-duktape",
     exclude: [
         "Upstream"
     ]
