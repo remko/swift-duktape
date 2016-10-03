@@ -1,6 +1,7 @@
 import XCTest
-@testable import CDuktapeTests
+@testable import DuktapeTests
 
 XCTMain([
-	testCase(CDuktapeTests.allTests),
+	testCase(APITests.allTests),
+	testCase(CompletenessTests.allTests)
 ])

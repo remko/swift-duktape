@@ -11,3 +11,4 @@
 /Sources/CDuktape/include/CDuktape.h
 /AUTHORS.duktape.rst
 /LICENSE.duktape.txt
+/Tests/DuktapeTests/CompletenessTests.swift

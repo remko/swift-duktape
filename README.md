@@ -5,32 +5,28 @@ JavaScript engine. Works on macOs and Linux.
 
 To see it in action, have a look at [this Universal React+Swift app](https://el-tramo.be/react-swift-example/).
 
-Currently, only a package `CDuktape` with low-level bindings is provided. This
-package is a direct mapping of the [Duktape API](http://duktape.org/api.html).
-
-⚠️ This package currently only contains the functions I need from Duktape, and
-is still unfinished: some macros still need to be transformed to proper
-functions. If you are interested in using this and missing something, contact
-[me](https://el-tramo.be).
+Currently, only a low-level binding is provided. These bindings are a
+direct mapping of the complete [Duktape API](http://duktape.org/api.html). A more idiomatic
+API may be implemented later.
 
 ## Usage
 
 Put this package as a dependency in your `Package.swift`:
     
       dependencies: [
-        .Package(url: "https://github.com/remko/swift-duktape.git", majorVersion: 0, minor: 1)
+        .Package(url: "https://github.com/remko/swift-duktape.git", majorVersion: 0, minor: 2)
       ],
     
 and import it in the source files where you want to use it:
 
-    import CDuktape
+    import Duktape
     
 
 ## Examples
 
 ### Simple Evaluation
 
-    import CDuktape
+    import Duktape
 
     let ctx = duk_create_heap_default()
     defer { duk_destroy_heap(ctx) }

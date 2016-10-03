@@ -23,7 +23,7 @@ $(SOURCES_DIR)/include/CDuktape.h $(SOURCES_DIR)/CDuktape.c Tests/CDuktapeTests/
 	./create_wrapper.rb $< \
 		$(SOURCES_DIR)/include/CDuktape.h \
 		$(SOURCES_DIR)/CDuktape.c \
-		Tests/CDuktapeTests/CompletenessTests.swift
+		Tests/DuktapeTests/CompletenessTests.swift
 
 AUTHORS.duktape.rst: Upstream/AUTHORS.rst
 	cp $< $@
