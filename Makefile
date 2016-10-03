@@ -19,8 +19,11 @@ $(SOURCES_DIR)/duktape.h: Upstream/src/duktape.h
 $(SOURCES_DIR)/duk_config.h: Upstream/src/duk_config.h
 	cp $< $@
 
-$(SOURCES_DIR)/include/CDuktape.h $(SOURCES_DIR)/CDuktape.c: Upstream/src/duktape.h create_wrapper.rb
-	./create_wrapper.rb $< $(SOURCES_DIR)/include/CDuktape.h $(SOURCES_DIR)/CDuktape.c
+$(SOURCES_DIR)/include/CDuktape.h $(SOURCES_DIR)/CDuktape.c Tests/CDuktapeTests/CompletenessTests.swift: Upstream/src/duktape.h create_wrapper.rb
+	./create_wrapper.rb $< \
+		$(SOURCES_DIR)/include/CDuktape.h \
+		$(SOURCES_DIR)/CDuktape.c \
+		Tests/DuktapeTests/CompletenessTests.swift
 
 AUTHORS.duktape.rst: Upstream/AUTHORS.rst
 	cp $< $@

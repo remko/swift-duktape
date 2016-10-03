@@ -1,7 +1,7 @@
 import XCTest
-@testable import CDuktape
+@testable import Duktape
 
-class CDuktapeTests: XCTestCase {
+class APITests: XCTestCase {
   func testEvalString() {
     let ctx = duk_create_heap(nil, nil, nil, nil, nil)
     duk_eval_string(ctx, "'foo' + 'bar'")
@@ -22,13 +22,13 @@ class CDuktapeTests: XCTestCase {
 
   func testSafeCall() {
     let ctx = duk_create_heap_default()
+    defer { duk_destroy_heap(ctx) }
     let ret = duk_safe_call(ctx, { ctx in
       duk_eval_string(ctx, "'foo' + 'bar'")
       return 1
     }, 0, 1);
     let result = String(validatingUTF8:duk_to_string(ctx, -1)!)!
     duk_pop(ctx);
-    duk_destroy_heap(ctx);
     XCTAssertEqual(ret, DUK_EXEC_SUCCESS)
     XCTAssertEqual(result, "foobar")
   }
@@ -46,8 +46,17 @@ class CDuktapeTests: XCTestCase {
     XCTAssertEqual(result, "My Error")
   }
 
+  func testPushErrorObject() {
+    let ctx = duk_create_heap_default()
+    defer { duk_destroy_heap(ctx) }
 
-  static var allTests : [(String, (CDuktapeTests) -> () throws -> Void)] {
+    _ = duk_push_error_object(ctx, DUK_ERR_TYPE_ERROR, "invalid argument value: %d", 42);
+
+    XCTAssertEqual(1, duk_is_error(ctx, -1))
+    XCTAssertEqual(DUK_ERR_TYPE_ERROR, duk_get_error_code(ctx, -1))
+  }
+
+  static var allTests : [(String, (APITests) -> () throws -> Void)] {
     return [
       ("testEvalString", testEvalString),
       ("testSafeCall", testSafeCall),
